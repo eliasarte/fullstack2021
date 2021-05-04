@@ -8,6 +8,26 @@ const Button = (props) => {
   )  
 }
 
+const MostVotes = (props) =>  {
+  const votes = Object.values(props.votes)
+  let result = votes[0];
+  let max = 0;
+
+  //No need to check for [0] elem
+  for (let i = 1; i < votes.length; i++) {
+      if (votes[i] > result) {
+          max = i;
+          result = votes[i];
+      }
+  }
+  return (
+    <div>
+      <p>{props.anecdotes[max]}</p>
+      <p>has {props.votes[max]} votes</p>
+    </div>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often',
@@ -32,12 +52,15 @@ const App = () => {
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {anecdotes[selected]}
       <p>has {votes[selected]} votes</p>
       <p>
         <Button handleClick={() => updater(selected)} text="vote" />
         <Button handleClick={() => setSelected(rand)} text="next anecdote" />
       </p>
+      <h1>Anecdote with most votes</h1>
+      <MostVotes votes={votes} anecdotes={anecdotes}/>
     </div>
 
   )
