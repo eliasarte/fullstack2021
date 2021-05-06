@@ -16,12 +16,23 @@ const Part = ({course}) => {
   )
 }
 
+const Total = ({courses}) => {
+  let sum = 0
+  courses.map(course => 
+    sum += course.exercises
+  )
+  return (
+    <b>total of {sum} exercises</b>
+  )
+}
+
 const Content = ({courses}) => {
   return (
     <div>
       {courses.map(course => 
         <Part key={course.id} course={course} />
       )}
+      <Total courses={courses} />
     </div>
   )
 }
