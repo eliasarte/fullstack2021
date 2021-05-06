@@ -17,13 +17,10 @@ const Part = ({course}) => {
 }
 
 const Total = ({courses}) => {
-  let sum = 0
-  courses.map(course => 
-    sum += course.exercises
-  )
+  const total = courses.reduce( (s, p) => s + p.exercises, 0)
   return (
-    <b>total of {sum} exercises</b>
-  )
+    <b>total of {total} exercises</b>
+  ) 
 }
 
 const Content = ({courses}) => {
