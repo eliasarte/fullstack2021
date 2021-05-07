@@ -35,6 +35,31 @@ const Language = (props) => {
   )
 }
 
+const Weather = ( {country} ) => {
+  const [ weather, setWeather] = useState([])
+  const api_key = process.env.REACT_APP_API_KEY
+  const URL = 'http://api.weatherstack.com/current?access_key='+api_key+'&query='+country.capital
+  //console.log(URL)
+  useEffect(() => {
+    console.log('effect')
+    axios
+      .get(URL)
+      .then(response => {
+        console.log('promise fulfilled')
+        setWeather(response.data.current)
+      })
+  }, [URL])
+  return (
+    <div>
+      <h2>Weather in {country.capital}</h2>
+      <p><b>temperature: </b>{weather.temperature} celsius</p>
+      <img src={weather.weather_icons} alt={country.capital} width="50vw" />
+      <p><b>wind: </b>{weather.wind_speed} <b>mph direction </b>{weather.wind_dir}</p>
+    </div>
+  )
+
+}
+
 const CountryDetailed = ( {country} ) => {
   return (
     <div>
@@ -48,6 +73,7 @@ const CountryDetailed = ( {country} ) => {
         )}
       </ul>
       <img src={country.flag} alt={country.name} width="200vw" />
+      <Weather country={country} />
     </div>
   )
 }
