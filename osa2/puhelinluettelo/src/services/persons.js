@@ -11,7 +11,13 @@ const create = newObject => {
   return request.then(response => response.data)
 }
 
+const remove = id => {
+  const url = baseUrl+'/'+id
+  const request = axios.delete(url)
+  return request.then(response => response.data)
+}
+
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default { 
-  getAll, create
+  getAll, create, remove
 }
