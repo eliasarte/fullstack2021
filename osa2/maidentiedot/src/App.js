@@ -15,9 +15,15 @@ const TooMany = () => {
   )
 }
 
-const CountrySimple = ( {country} ) => {
+const CountrySimple = ( {country, setFilter} ) => {
+  const handleClick = () => {
+    setFilter(country.name)
+  }
   return (
-    <p>{country.name}</p>
+    <div>
+      {country.name}
+      <button type="button" onClick={handleClick}>show</button>
+    </div>
   )
 }
 
@@ -54,7 +60,7 @@ const AllCountries = (props) => {
   else if (count > 1) {
     return (
       <div>
-        {data.map(country => <CountrySimple key={country.name} country={country} />)}
+        {data.map(country => <CountrySimple key={country.name} country={country} setFilter={props.setFilter} />)}
       </div>
     )
   }
@@ -90,7 +96,7 @@ const App = () => {
   return (
     <div>
       <Filter filterName={filterName} handleFilterChange={handleFilterChange}/>
-      <AllCountries countries={countries} filterName={filterName} />
+      <AllCountries countries={countries} filterName={filterName} setFilter={setFilter} />
     </div>
   )
 
