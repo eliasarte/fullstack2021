@@ -25,12 +25,18 @@ const PersonForm = (props) => {
   )
 }
 
-const Person = ( {person, persons, setPersons} ) => {
+const Person = ( {person, persons, setPersons, setMessager} ) => {
   const handleClick = () => {
     if (window.confirm(`Delete ${person.name}`)) {
       personService
       .remove(person.id)
       .then(setPersons(persons.filter(someone => someone.id !== person.id)))
+      setMessager(
+        `Deleted ${person.name}`
+      )
+      setTimeout(() => {
+        setMessager(null)
+      }, 5000)
     }
   }
   return (
@@ -45,8 +51,28 @@ const AllPersons = (props) => {
     <div>
       {props.persons.filter(person =>
           person.name.toLowerCase().includes(props.filterName.toLowerCase()) === true).map(person => 
-            <Person key={person.name} person={person} persons={props.persons} setPersons={props.setPersons} />
+            <Person key={person.name} person={person} persons={props.persons} setPersons={props.setPersons} setMessager={props.setMessager} />
       )}
+    </div>
+  )
+}
+
+const Notification = ({ message, error}) => {
+  if (message === null) {
+    return null
+  }
+
+  if (error) {
+    return (
+      <div className="error">
+        {message}
+      </div>
+    )
+  }
+
+  return (
+    <div className="messager">
+      {message}
     </div>
   )
 }
@@ -56,6 +82,8 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ filterName, setFilter ] = useState('')
+  const [ messager, setMessager] = useState(null)
+  const [ errorState, setError] = useState(false)
 
   useEffect(() => {
     console.log('effect')
@@ -96,6 +124,22 @@ const App = () => {
           setPersons(persons.map(person => person.id === personObject.id ? response : person))
           setNewName('')
           setNewNumber('')
+          setMessager(
+            `Updated ${newName}'s phone number to ${newNumber}`
+          )
+          setTimeout(() => {
+            setMessager(null)
+          }, 5000)
+        })
+        .catch(error => {
+          setMessager(
+            `${newName} was not found. Perhaps it was deleted?`
+          )
+          setError(true)
+          setTimeout(() => {
+            setMessager(null)
+            setError(false)
+          }, 5000)
         })
       }
     }
@@ -110,6 +154,12 @@ const App = () => {
         setPersons(persons.concat(response))
         setNewName('')
         setNewNumber('')
+        setMessager(
+          `Added ${newName}`
+        )
+        setTimeout(() => {
+          setMessager(null)
+        }, 5000)
       })
     }
   }
@@ -117,11 +167,12 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={messager} error={errorState} />
       <Filter filterName={filterName} handleFilterChange={handleFilterChange}/>
       <h2>add a new</h2>
       <PersonForm addPerson={addPerson} newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} />
       <h2>Numbers</h2>
-      <AllPersons persons={persons} filterName={filterName} setPersons={setPersons} />
+      <AllPersons persons={persons} filterName={filterName} setPersons={setPersons} setMessager={setMessager}/>
     </div>
   )
 
