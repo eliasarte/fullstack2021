@@ -36,7 +36,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3001",
   "devDependencies": {
     "json-server": "^0.16.3"
   }
