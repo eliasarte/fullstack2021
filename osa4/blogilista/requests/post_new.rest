@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs/ HTTP/1.1
 content-type: application/json
 
 {
-    "title": "new blog jee3",
+    "title": "new blog jee4",
     "author": "testeri",
     "url": "blog.fi/2",
-    "likes": 5
+    "likes": 7
 }
