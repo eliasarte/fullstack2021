@@ -1,0 +1,9 @@
+PUT http://localhost:3003/api/blogs/5a422a851b54a676234d17f7 HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Edited blog",
+    "author": "editor",
+    "url": "blog.fi/2",
+    "likes": 61
+}
