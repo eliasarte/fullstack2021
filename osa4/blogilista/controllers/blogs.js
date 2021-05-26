@@ -43,7 +43,7 @@ blogsRouter.delete('/:id', async (request, response) => {
   response.status(204).end()
 })
 
-blogsRouter.put('/:id', async (request, response) => {
+/*blogsRouter.put('/:id', async (request, response) => {
   const user = request.user
   const blog = request.body
   const oldBlog = await Blog.findById(request.params.id)
@@ -56,6 +56,13 @@ blogsRouter.put('/:id', async (request, response) => {
   const updatedBlog = await Blog
     .findByIdAndUpdate(request.params.id, blog, { new: true })
     .populate('user', { username: 1, name: 1, id: 1 })
+  response.json(updatedBlog.toJSON())
+})*/
+
+blogsRouter.put('/:id', async (request, response) => {
+  const blog = request.body
+
+  const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
   response.json(updatedBlog.toJSON())
 })
 
