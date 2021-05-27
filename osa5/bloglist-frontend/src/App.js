@@ -36,14 +36,14 @@ const App = () => {
 
     if (error) {
       return (
-        <div className="error">
+        <div className="error" id='error-notification'>
           {message}
         </div>
       )
     }
 
     return (
-      <div className="messager">
+      <div className="messager" id='notification'>
         {message}
       </div>
     )
@@ -99,7 +99,7 @@ const App = () => {
 
   const blogFormRef = useRef()
   const blogForm = () => (
-    <Togglable buttonLabel="new blog" ref={blogFormRef}>
+    <Togglable buttonLabel="new blog" id='new-blog' ref={blogFormRef}>
       <BlogForm createBlog={addBlog} />
     </Togglable>
   )
