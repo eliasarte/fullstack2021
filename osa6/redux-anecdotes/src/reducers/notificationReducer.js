@@ -12,13 +12,16 @@ const notificationReducer = (state = false, action) => {
   }
 }
 
+let timeoutId
 export const setNotification = (notification, time) => {
   return async dispatch => {
     dispatch({
       type: 'SET',
       data: notification,
     })
-    setTimeout(() => {
+
+    if (timeoutId) clearTimeout(timeoutId)
+    timeoutId = setTimeout(() => {
       dispatch({
         type: 'REMOVE'
       })
