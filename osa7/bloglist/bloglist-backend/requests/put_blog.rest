@@ -1,0 +1,10 @@
+PUT http://localhost:3003/api/blogs/60a672642f84330cf7a60a40 HTTP/1.1
+content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpZCI6IjYwYTY3MjJmMmY4NDMzMGNmN2E2MGEzZiIsImlhdCI6MTYyMTUyMDk1MX0.FEjEQv38V-wKk164KaeYbokcYaC6fZDpS7z2ZIznJUo
+
+{
+    "title": "Edited blasdsaog",
+    "author": "editor",
+    "url": "blog.fi/2",
+    "likes": 61
+}
